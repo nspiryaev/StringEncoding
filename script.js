@@ -1,3 +1,8 @@
+function isUppercaseLatin(str) {
+  const regex = /^[A-Z]+$/;
+  return regex.test(str);
+}
+
 function encodeString(str) {
   let result = "";
   let countLetters = 0;
@@ -23,7 +28,8 @@ function displayEncodedString(block, str) {
 }
 
 function updateButtonState(button, input) {
-  button.disabled = getStringValue(input) === "";
+  button.disabled =
+    getStringValue(input) === "" || !isUppercaseLatin(getStringValue(input));
 }
 
 (function () {
@@ -43,7 +49,7 @@ function updateButtonState(button, input) {
     const str = getStringValue(textarea);
 
     displayEncodedString(out, str);
-    updateButtonState(copyButton, textarea);
+    updateButtonState(copyButton, textarea, str);
 
     copyButton.addEventListener("click", () => {
       copyToClipboard(out);
